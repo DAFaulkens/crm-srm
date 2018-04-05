@@ -1,0 +1,37 @@
+.list-content{
+
+
+
+}
+
+.list-control{
+    margin: 1rem 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.list-table{
+
+}
+
+.list-search{
+    font-family: inherit;
+    font-size: 1.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    background-color: rgba(255,255,255,0.5);
+    border: 1px solid $color-input-grey;
+    display: block;
+    width: 30rem;
+
+    &:focus{
+        outline: none;
+        border: 1px solid $color-input-focus-grey
+      }
+    
+      &:disabled{
+          border: 1px solid transparent;
+        //   font-weight: 600;
+      }
+}

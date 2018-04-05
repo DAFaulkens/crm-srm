@@ -1,0 +1,22 @@
+.show-page{
+
+
+    &__row{
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-start;
+    }
+
+    &__section{
+        width: 49%;
+        border: 1px solid $color-grey-light;
+        // padding: 3rem 5rem;
+        box-shadow: $shadow-light;
+        margin-top: 5rem;
+    }
+
+    &__control{
+        display: flex;
+        justify-content: flex-end;
+    }
+}

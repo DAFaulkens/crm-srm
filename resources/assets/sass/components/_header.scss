@@ -1,0 +1,63 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+
+    // width: 100%;
+    background-color: $color-background-blue;
+
+    padding: 2rem 0;
+    font-size: 1.2rem;
+
+    &__set{
+        display: flex;
+        justify-content: flex-start;
+
+        &:last-child{
+            padding-right: 2rem;
+        }
+    }
+
+    &__menu{
+        display: flex;
+        justify-content: flex-start;
+        list-style: none;
+    }
+
+    &__items{
+        display: inline-block;
+    }
+
+    &__link{
+
+        &:link, &:visited{
+            text-decoration: none;
+            margin: 0 1rem;
+            display: block;
+            font-size: 1.5rem;
+
+            color: $color-white;
+            font-weight: 50;
+            border-bottom: 1px solid transparent;
+
+        }
+
+        &.active{
+            font-weight: 800;
+        }
+
+        &:hover{
+            border-bottom: 1px solid $color-white;
+        }
+
+    }
+
+    &__brand{
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: $color-white;
+
+        margin: 0 2rem;
+        // padding: 1rem;
+    }
+
+}

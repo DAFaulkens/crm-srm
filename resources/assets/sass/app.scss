@@ -1,0 +1,22 @@
+@import "node_modules/font-awesome/scss/font-awesome.scss";
+
+@import 'variables';
+
+
+@import 'base';
+
+//layouts
+
+@import './layouts/site-page';
+@import './layouts/list-content';
+@import './layouts/show-page';
+@import './layouts/page';
+//components
+@import './components/header';
+@import './components/table';
+@import './components/pagination';
+@import './components/form';
+@import './components/button';
+@import './components/simple-table';
+@import './components/tab';
+@import './components/loading';
