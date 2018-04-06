@@ -13,6 +13,17 @@ const initialState = {
 const reducer = (state = initialState, action) => {
 
     switch(action.type){
+
+        case actionTypes.CREATE_VENDOR:
+            return {
+                ...state,
+                id: action.vendor.id,
+                name: action.vendor.name,
+                support_number: action.vendor.support_number,
+                support_email: action.vendor.support_email,
+                system: action.vendor.system,
+                system_id: action.vendor.system_id
+            }
             
         case actionTypes.SHOW_VENDOR:
             return {
@@ -24,7 +35,6 @@ const reducer = (state = initialState, action) => {
                 system: action.vendor.system,
                 system_id: action.vendor.system_id
             }
-        
         case actionTypes.UPDATE_VENDOR:
             return{
                 ...state,

@@ -23,20 +23,36 @@ class VendorForm extends Component {
     }
 
     componentDidMount(){
-        if(this.props.vendor){
+        if(this.props.vendor && this.props.options.length > 0){
+            console.log(this.props.options);
             this.setState({
                 ...this.state,
-                vendor: this.props.vendor
+                vendor: {
+                    id: this.props.vendor.id,
+                    name: this.props.vendor.name,
+                    support_number: this.props.vendor.support_number,
+                    support_email: this.props.vendor.support_email,
+                    system: this.props.vendor.system,
+                    system_id: this.props.vendor.system_id? this.props.vendor.system_id : this.props.options[0].id
+                }
             })
         }
     }
 
 
     componentWillReceiveProps(nextProps){
-        if(nextProps.vendor){
+        if(nextProps.vendor && nextProps.options.length > 0){
             this.setState({
                 ...this.state,
-                vendor: nextProps.vendor
+                vendor: {
+                    id: nextProps.vendor.id,
+                    name: nextProps.vendor.name,
+                    support_number: nextProps.vendor.support_number,
+                    support_email: nextProps.vendor.support_email,
+                    system: nextProps.vendor.system,
+                    system_id: nextProps.vendor.system_id? 
+                        nextProps.vendor.system_id : nextProps.options[0].id
+                }
             })
         }
     }
@@ -60,6 +76,7 @@ class VendorForm extends Component {
         }
 
         if(this.props.new){
+            console.log(this.state.vendor);
             this.props.onCreate(this.state.vendor);
         }
 
@@ -68,7 +85,6 @@ class VendorForm extends Component {
 
     render(){
 
-        console.log(this.state.vendor);
         return(
             <div className='form'>
                 <FormInput  label='Vendor Name' 

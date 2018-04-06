@@ -23,8 +23,15 @@ class NewVendor extends Component {
         }
     }
 
+    componentWillReceiveProps(nextProps){
+        if(nextProps.vendor.id){
+            this.props.history.push(`/vendors/${nextProps.vendor.id}`);
+        }
+    }
+
+
     handleCreateVendorEvent(newVendor){
-        
+        this.props.onCreateVendor(newVendor);
     }
 
     render(){
@@ -50,13 +57,15 @@ class NewVendor extends Component {
 
 const mapStateToProps = state => {
     return{
+        vendor: state.vendor,
         systems: state.system.collection
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onListSystems: () => dispatch(systemActions.listSystem())
+        onListSystems: () => dispatch(systemActions.listSystem()),
+        onCreateVendor: (newVendor) => dispatch(vendorActions.createVendor(newVendor))
     }
 }
 

@@ -36,9 +36,12 @@ export const updateVendor = (updatedVendor, vendorId) => {
 export const createVendor = (newVendor) => {
     return dispatch => {
         const api = `${url}/vendors`;
-
         axios.post(api, JSON.stringify(newVendor), {headers:headers}).then(res =>{
-
+            console.log(res);
+            dispatch({
+                type: actionTypes.CREATE_VENDOR,
+                vendor: res.data.data
+            })
         });
     }
 }

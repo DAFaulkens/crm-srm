@@ -10,6 +10,7 @@ export const CANCEL = 'CANCEL';
 export const SHOW_VENDOR = 'SHOW_VENDOR';
 export const UPDATE_VENDOR = 'UPDATE_VENDOR';
 export const CLEAR_VENDOR = 'CLEAR_VENDOR';
+export const CREATE_VENDOR = 'CREATE_VENDOR';
 
 //Systems
 

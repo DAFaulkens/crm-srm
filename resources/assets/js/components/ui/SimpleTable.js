@@ -1,9 +1,6 @@
 import React from 'react';
 
 
-
-
-
 const SimpleTable = (props) => {
 
     const columns = props.columns.map(column => {

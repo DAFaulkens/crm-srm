@@ -39,6 +39,8 @@ class Tabs extends Component {
                     {tabs}
                 </ul>
                 <div className='tab__content'>
+                    <button className='button' >Add</button>
+                    <button className='button' >Edit</button>
                     {this.props.children[this.state.active]}
                 </div>
             </div>

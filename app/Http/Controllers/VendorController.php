@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Resources\Vendor as VendorResource;
 use App\Vendor;
+use App\System;
 
 class VendorController extends Controller
 {
@@ -60,7 +61,24 @@ class VendorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $vendor = new Vendor;
+
+        $vendor->name = $request->name;
+        $vendor->support_number = $request->support_number;
+        $vendor->support_email = $request->support_email;
+
+        $system = System::find($request->system_id);
+
+        if($system){
+            $vendor->system()->associate($system);
+        }
+
+        $vendor->save();
+
+        return new VendorResource($vendor);
+
+   
+
     }
 
     /**

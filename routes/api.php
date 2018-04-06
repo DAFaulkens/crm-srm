@@ -25,6 +25,7 @@ Route::put('sites/{id}', 'SiteController@update');
 Route::delete('sites/{id}', 'SiteController@destroy');
 
 Route::get('vendors', 'VendorController@index');
+Route::post('vendors', 'VendorController@store');
 Route::get('vendors/{id}', 'VendorController@show');
 Route::put('vendors/{id}', 'VendorController@update');
 
