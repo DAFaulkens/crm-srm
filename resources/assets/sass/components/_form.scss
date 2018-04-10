@@ -61,3 +61,16 @@
         }
     }
 }
+
+
+.row-form{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    &__section {
+
+        &--45{
+            width: 45%;
+        }
+    }
+}

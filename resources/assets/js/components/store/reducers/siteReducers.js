@@ -47,7 +47,19 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 edit: action.edit
             }
+
+        case actionTypes.ATTACH_VENDOR:
+            return {
+                ...state,
+                site: action.site
+            }
         
+        case actionTypes.DETACH_VENDOR:
+            return {
+                ...state,
+                site: action.site
+            }
+
         default:
             return state;
     }

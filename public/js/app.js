@@ -629,22 +629,26 @@ var headers = {
 
 "use strict";
 /* unused harmony export CREATE_SITE */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return UPDATE_SITE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return DELETE_SITE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return SHOW_SITE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return EDIT_SITE; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CANCEL; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return SHOW_VENDOR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return UPDATE_VENDOR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CLEAR_VENDOR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return CREATE_VENDOR; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return LIST_SYSTEM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return UPDATE_SITE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return DELETE_SITE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return SHOW_SITE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return EDIT_SITE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return CANCEL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ATTACH_VENDOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return DETACH_VENDOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return SHOW_VENDOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return UPDATE_VENDOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return CLEAR_VENDOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return CREATE_VENDOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return LIST_SYSTEM; });
 var CREATE_SITE = 'CREATE_SITE';
 var UPDATE_SITE = 'UPDATE_SITE';
 var DELETE_SITE = 'DELETE_SITE';
 var SHOW_SITE = 'SHOW_SITE';
 var EDIT_SITE = 'EDIT_SITE';
 var CANCEL = 'CANCEL';
+var ATTACH_VENDOR = 'ATTACH_VENDOR';
+var DETACH_VENDOR = 'DETACH_VENDOR';
 
 //Vendors
 var SHOW_VENDOR = 'SHOW_VENDOR';
@@ -4616,9 +4620,11 @@ var FormInput = function FormInput(props) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return showSite; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return deleteSite; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return updateSite; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return showSite; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return deleteSite; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return updateSite; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return attachVendor; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return detachVendor; });
 /* unused harmony export editSite */
 /* unused harmony export cancel */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(5);
@@ -4635,7 +4641,7 @@ var showSite = function showSite(siteId) {
         var api = __WEBPACK_IMPORTED_MODULE_2__config__["b" /* url */] + '/sites/' + siteId;
         __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(api).then(function (res) {
             dispatch({
-                type: __WEBPACK_IMPORTED_MODULE_1__actionTypes__["g" /* SHOW_SITE */],
+                type: __WEBPACK_IMPORTED_MODULE_1__actionTypes__["i" /* SHOW_SITE */],
                 site: res.data.data
             });
         });
@@ -4649,7 +4655,7 @@ var deleteSite = function deleteSite(siteId) {
         __WEBPACK_IMPORTED_MODULE_0_axios___default.a.delete(api, { headers: __WEBPACK_IMPORTED_MODULE_2__config__["a" /* headers */] }).then(function (res) {
             var message = { type: 'success', message: 'Site Deleted' };
             dispatch({
-                type: __WEBPACK_IMPORTED_MODULE_1__actionTypes__["d" /* DELETE_SITE */],
+                type: __WEBPACK_IMPORTED_MODULE_1__actionTypes__["e" /* DELETE_SITE */],
                 message: message
             });
         });
@@ -4663,8 +4669,36 @@ var updateSite = function updateSite(updatedSite, id) {
 
         __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put(api, JSON.stringify(updatedSite), { headers: __WEBPACK_IMPORTED_MODULE_2__config__["a" /* headers */] }).then(function (res) {
             dispatch({
-                type: __WEBPACK_IMPORTED_MODULE_1__actionTypes__["i" /* UPDATE_SITE */],
+                type: __WEBPACK_IMPORTED_MODULE_1__actionTypes__["k" /* UPDATE_SITE */],
                 updatedSite: res.data.data
+            });
+        });
+    };
+};
+
+var attachVendor = function attachVendor(siteId, vendorId) {
+    return function (dispatch) {
+
+        var api = __WEBPACK_IMPORTED_MODULE_2__config__["b" /* url */] + '/sites/' + siteId + '/vendors/' + vendorId;
+
+        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(api, { headers: __WEBPACK_IMPORTED_MODULE_2__config__["a" /* headers */] }).then(function (res) {
+            dispatch({
+                type: __WEBPACK_IMPORTED_MODULE_1__actionTypes__["a" /* ATTACH_VENDOR */],
+                site: res.data.data
+            });
+        });
+    };
+};
+
+var detachVendor = function detachVendor(siteId, vendorId) {
+    return function (dispatch) {
+
+        var api = __WEBPACK_IMPORTED_MODULE_2__config__["b" /* url */] + '/sites/' + siteId + '/vendors/' + vendorId;
+
+        __WEBPACK_IMPORTED_MODULE_0_axios___default.a.delete(api, { headers: __WEBPACK_IMPORTED_MODULE_2__config__["a" /* headers */] }).then(function (res) {
+            dispatch({
+                type: __WEBPACK_IMPORTED_MODULE_1__actionTypes__["f" /* DETACH_VENDOR */],
+                site: res.data.data
             });
         });
     };
@@ -4672,14 +4706,14 @@ var updateSite = function updateSite(updatedSite, id) {
 
 var editSite = function editSite() {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_1__actionTypes__["e" /* EDIT_SITE */],
+        type: __WEBPACK_IMPORTED_MODULE_1__actionTypes__["g" /* EDIT_SITE */],
         edit: true
     };
 };
 
 var cancel = function cancel() {
     return {
-        type: __WEBPACK_IMPORTED_MODULE_1__actionTypes__["a" /* CANCEL */],
+        type: __WEBPACK_IMPORTED_MODULE_1__actionTypes__["b" /* CANCEL */],
         edit: false,
         new: false
     };
@@ -4773,8 +4807,8 @@ var Loading = function Loading() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ui_FormInput__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ui_FormControl__ = __webpack_require__(168);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ui_FormSelect__ = __webpack_require__(169);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ui_FormControl__ = __webpack_require__(169);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ui_FormSelect__ = __webpack_require__(170);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -4935,7 +4969,7 @@ var showVendor = function showVendor(vendorId) {
 
         __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(api).then(function (res) {
             dispatch({
-                type: __WEBPACK_IMPORTED_MODULE_1__actionTypes__["h" /* SHOW_VENDOR */],
+                type: __WEBPACK_IMPORTED_MODULE_1__actionTypes__["j" /* SHOW_VENDOR */],
                 vendor: res.data.data
             });
         });
@@ -4949,7 +4983,7 @@ var updateVendor = function updateVendor(updatedVendor, vendorId) {
 
         __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put(api, JSON.stringify(updatedVendor), { headers: __WEBPACK_IMPORTED_MODULE_2__config__["a" /* headers */] }).then(function (res) {
             dispatch({
-                type: __WEBPACK_IMPORTED_MODULE_1__actionTypes__["j" /* UPDATE_VENDOR */],
+                type: __WEBPACK_IMPORTED_MODULE_1__actionTypes__["l" /* UPDATE_VENDOR */],
                 vendor: res.data.data
             });
         });
@@ -4962,7 +4996,7 @@ var createVendor = function createVendor(newVendor) {
         __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post(api, JSON.stringify(newVendor), { headers: __WEBPACK_IMPORTED_MODULE_2__config__["a" /* headers */] }).then(function (res) {
             console.log(res);
             dispatch({
-                type: __WEBPACK_IMPORTED_MODULE_1__actionTypes__["c" /* CREATE_VENDOR */],
+                type: __WEBPACK_IMPORTED_MODULE_1__actionTypes__["d" /* CREATE_VENDOR */],
                 vendor: res.data.data
             });
         });
@@ -4972,7 +5006,7 @@ var createVendor = function createVendor(newVendor) {
 var clearSelectedVendor = function clearSelectedVendor() {
     return function (dispatch) {
         dispatch({
-            type: __WEBPACK_IMPORTED_MODULE_1__actionTypes__["b" /* CLEAR_VENDOR */]
+            type: __WEBPACK_IMPORTED_MODULE_1__actionTypes__["c" /* CLEAR_VENDOR */]
         });
     };
 };
@@ -4998,7 +5032,7 @@ var listSystem = function listSystem() {
 
         __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(api, { headers: __WEBPACK_IMPORTED_MODULE_2__config__["a" /* headers */] }).then(function (res) {
             dispatch({
-                type: __WEBPACK_IMPORTED_MODULE_1__actionTypes__["f" /* LIST_SYSTEM */],
+                type: __WEBPACK_IMPORTED_MODULE_1__actionTypes__["h" /* LIST_SYSTEM */],
                 systems: res.data.data
             });
         });
@@ -5010,7 +5044,7 @@ var listSystem = function listSystem() {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(66);
-module.exports = __webpack_require__(177);
+module.exports = __webpack_require__(178);
 
 
 /***/ }),
@@ -5029,9 +5063,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_redux_thunk__ = __webpack_require__(131);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_redux_thunk___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_redux_thunk__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_Main__ = __webpack_require__(132);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_store_reducers_siteReducers__ = __webpack_require__(174);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_store_reducers_vendorReducers__ = __webpack_require__(175);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_store_reducers_systemReducers__ = __webpack_require__(176);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_store_reducers_siteReducers__ = __webpack_require__(175);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_store_reducers_vendorReducers__ = __webpack_require__(176);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_store_reducers_systemReducers__ = __webpack_require__(177);
 
 
 
@@ -27123,10 +27157,10 @@ var Login = function Login() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router_dom__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_sites_SitePage__ = __webpack_require__(135);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_vendors_VendorPage__ = __webpack_require__(165);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_documents_DocumentPage__ = __webpack_require__(171);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_home_HomePage__ = __webpack_require__(172);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ui_Header__ = __webpack_require__(173);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_vendors_VendorPage__ = __webpack_require__(166);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_documents_DocumentPage__ = __webpack_require__(172);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_home_HomePage__ = __webpack_require__(173);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ui_Header__ = __webpack_require__(174);
 
 
 
@@ -27167,7 +27201,7 @@ var Dashboard = function Dashboard() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router_dom__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ListSites__ = __webpack_require__(136);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ShowSite__ = __webpack_require__(161);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__NewSite__ = __webpack_require__(164);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__NewSite__ = __webpack_require__(165);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ui_spinner_Loading__ = __webpack_require__(61);
 
 
@@ -28737,6 +28771,7 @@ exports.push([module.i, ".load-wrapp {\r\n    /* float: left; */\r\n    /* width
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ui_SimpleTable__ = __webpack_require__(162);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ui_Tabs__ = __webpack_require__(163);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__store_actions_siteActions__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__tabs_VendorTab__ = __webpack_require__(187);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -28746,6 +28781,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -28857,8 +28893,8 @@ var ShowSite = function (_Component) {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             __WEBPACK_IMPORTED_MODULE_6__ui_Tabs__["a" /* default */],
                             { tabs: tabs },
-                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__ui_SimpleTable__["a" /* default */], { data: this.props.site.vendors,
-                                columns: vendorColumns }),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__tabs_VendorTab__["a" /* default */], { data: this.props.site.vendors,
+                                siteId: this.props.site.id }),
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__ui_SimpleTable__["a" /* default */], { data: this.props.site.documents,
                                 columns: documentColumns })
                         )
@@ -28883,13 +28919,13 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
         onShowSite: function onShowSite(id) {
-            return dispatch(__WEBPACK_IMPORTED_MODULE_7__store_actions_siteActions__["b" /* showSite */](id));
+            return dispatch(__WEBPACK_IMPORTED_MODULE_7__store_actions_siteActions__["d" /* showSite */](id));
         },
         onDeleteSite: function onDeleteSite(id) {
-            return dispatch(__WEBPACK_IMPORTED_MODULE_7__store_actions_siteActions__["a" /* deleteSite */](id));
+            return dispatch(__WEBPACK_IMPORTED_MODULE_7__store_actions_siteActions__["b" /* deleteSite */](id));
         },
         onUpdateSite: function onUpdateSite(updatedSite, id) {
-            return dispatch(__WEBPACK_IMPORTED_MODULE_7__store_actions_siteActions__["c" /* updateSite */](updatedSite, id));
+            return dispatch(__WEBPACK_IMPORTED_MODULE_7__store_actions_siteActions__["e" /* updateSite */](updatedSite, id));
         }
     };
 };
@@ -29035,16 +29071,6 @@ var Tabs = function (_Component) {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'div',
                     { className: 'tab__content' },
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'button',
-                        { className: 'button' },
-                        'Add'
-                    ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                        'button',
-                        { className: 'button' },
-                        'Edit'
-                    ),
                     this.props.children[this.state.active]
                 )
             );
@@ -29057,7 +29083,8 @@ var Tabs = function (_Component) {
 /* harmony default export */ __webpack_exports__["a"] = (Tabs);
 
 /***/ }),
-/* 164 */
+/* 164 */,
+/* 165 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29151,16 +29178,16 @@ var NewSite = function (_Component) {
 /* harmony default export */ __webpack_exports__["a"] = (NewSite);
 
 /***/ }),
-/* 165 */
+/* 166 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router_dom__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ListVendors__ = __webpack_require__(166);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__NewVendor__ = __webpack_require__(167);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ShowVendor__ = __webpack_require__(170);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ListVendors__ = __webpack_require__(167);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__NewVendor__ = __webpack_require__(168);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ShowVendor__ = __webpack_require__(171);
 
 
 
@@ -29186,7 +29213,7 @@ var VendorPage = function VendorPage() {
 /* harmony default export */ __webpack_exports__["a"] = (VendorPage);
 
 /***/ }),
-/* 166 */
+/* 167 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29467,7 +29494,7 @@ var ListVendors = function (_Component) {
 /* harmony default export */ __webpack_exports__["a"] = (ListVendors);
 
 /***/ }),
-/* 167 */
+/* 168 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29576,7 +29603,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_4_react_redux__["b" /* connect */])(mapStateToProps, mapDispatchToProps)(NewVendor));
 
 /***/ }),
-/* 168 */
+/* 169 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29654,7 +29681,7 @@ var FormControl = function FormControl(props) {
 /* harmony default export */ __webpack_exports__["a"] = (FormControl);
 
 /***/ }),
-/* 169 */
+/* 170 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29685,6 +29712,11 @@ var FormSelect = function FormSelect(props) {
             { disabled: !props.edit,
                 name: props.name, className: "form__select", onChange: props.onChange,
                 value: props.value },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                "option",
+                { value: "0" },
+                "--- Please Select ---"
+            ),
             options
         )
     );
@@ -29693,7 +29725,7 @@ var FormSelect = function FormSelect(props) {
 /* harmony default export */ __webpack_exports__["a"] = (FormSelect);
 
 /***/ }),
-/* 170 */
+/* 171 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29842,7 +29874,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 /* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_4_react_redux__["b" /* connect */])(mapStateToProps, mapDispatchToProps)(ShowVendor));
 
 /***/ }),
-/* 171 */
+/* 172 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29862,7 +29894,7 @@ var DocumentPage = function DocumentPage() {
 /* harmony default export */ __webpack_exports__["a"] = (DocumentPage);
 
 /***/ }),
-/* 172 */
+/* 173 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29882,7 +29914,7 @@ var HomePage = function HomePage() {
 /* harmony default export */ __webpack_exports__["a"] = (HomePage);
 
 /***/ }),
-/* 173 */
+/* 174 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29946,7 +29978,7 @@ var Header = function Header(props) {
 /* harmony default export */ __webpack_exports__["a"] = (Header);
 
 /***/ }),
-/* 174 */
+/* 175 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29979,26 +30011,36 @@ var reducer = function reducer() {
 
     switch (action.type) {
 
-        case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["g" /* SHOW_SITE */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["i" /* SHOW_SITE */]:
             return _extends({}, state, {
                 site: action.site
             });
 
-        case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["d" /* DELETE_SITE */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["e" /* DELETE_SITE */]:
 
             return _extends({}, state, {
                 message: action.message,
                 site: null
             });
 
-        case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["i" /* UPDATE_SITE */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["k" /* UPDATE_SITE */]:
             return _extends({}, state, {
                 site: action.updatedSite
             });
 
-        case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["e" /* EDIT_SITE */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["g" /* EDIT_SITE */]:
             return _extends({}, state, {
                 edit: action.edit
+            });
+
+        case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["a" /* ATTACH_VENDOR */]:
+            return _extends({}, state, {
+                site: action.site
+            });
+
+        case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["f" /* DETACH_VENDOR */]:
+            return _extends({}, state, {
+                site: action.site
             });
 
         default:
@@ -30009,7 +30051,7 @@ var reducer = function reducer() {
 /* harmony default export */ __webpack_exports__["a"] = (reducer);
 
 /***/ }),
-/* 175 */
+/* 176 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -30034,7 +30076,7 @@ var reducer = function reducer() {
 
     switch (action.type) {
 
-        case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["c" /* CREATE_VENDOR */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["d" /* CREATE_VENDOR */]:
             return _extends({}, state, {
                 id: action.vendor.id,
                 name: action.vendor.name,
@@ -30044,7 +30086,7 @@ var reducer = function reducer() {
                 system_id: action.vendor.system_id
             });
 
-        case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["h" /* SHOW_VENDOR */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["j" /* SHOW_VENDOR */]:
             return _extends({}, state, {
                 id: action.vendor.id,
                 name: action.vendor.name,
@@ -30053,7 +30095,7 @@ var reducer = function reducer() {
                 system: action.vendor.system,
                 system_id: action.vendor.system_id
             });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["j" /* UPDATE_VENDOR */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["l" /* UPDATE_VENDOR */]:
             return _extends({}, state, {
                 id: action.vendor.id,
                 name: action.vendor.name,
@@ -30062,7 +30104,7 @@ var reducer = function reducer() {
                 system: action.vendor.system,
                 system_id: action.vendor.system_id
             });
-        case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["b" /* CLEAR_VENDOR */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["c" /* CLEAR_VENDOR */]:
             return {
                 id: '',
                 name: '',
@@ -30079,7 +30121,7 @@ var reducer = function reducer() {
 /* harmony default export */ __webpack_exports__["a"] = (reducer);
 
 /***/ }),
-/* 176 */
+/* 177 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -30105,7 +30147,7 @@ var reducer = function reducer() {
 
     switch (action.type) {
 
-        case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["f" /* LIST_SYSTEM */]:
+        case __WEBPACK_IMPORTED_MODULE_0__actions_actionTypes__["h" /* LIST_SYSTEM */]:
 
             return _extends({}, state, {
                 collection: action.systems
@@ -30120,10 +30162,350 @@ var reducer = function reducer() {
 /* harmony default export */ __webpack_exports__["a"] = (reducer);
 
 /***/ }),
-/* 177 */
+/* 178 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 179 */,
+/* 180 */,
+/* 181 */,
+/* 182 */,
+/* 183 */,
+/* 184 */,
+/* 185 */,
+/* 186 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+
+
+var TableCell = function TableCell(props) {
+
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        { className: 'stable__column', key: +new Date() + Math.floor(Math.random() * 999999) },
+        props.value
+    );
+};
+
+var TableRow = function TableRow(props) {
+
+    var column = '';
+
+    if (props.rowData) {
+        column = props.headers.map(function (header) {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(TableCell, { value: props.rowData[header.name],
+                key: header.id });
+        });
+    }
+
+    return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        { className: 'stable__row' },
+        column,
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'stable__control' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'button', value: '-', className: 'button',
+                onClick: function onClick() {
+                    return props.onRemoveItem(props.rowData.id);
+                } })
+        )
+    );
+};
+
+var ControlTable = function ControlTable(props) {
+
+    var rows = '';
+
+    if (props.data) {
+        rows = props.data.map(function (row) {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(TableRow, { rowData: row, headers: props.headers,
+                key: Math.floor(Math.random() * 999999),
+                onRemoveItem: props.onRemoveItem });
+        });
+    }
+
+    var headers = props.headers.map(function (header) {
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'stable__column stable__head',
+                key: Math.floor(Math.random() * 999999) },
+            ' ',
+            header.displayName,
+            ' '
+        );
+    });
+
+    var table = '';
+
+    if (props.data.length > 0) {
+        table = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'stable' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'stable__header' },
+                ' ',
+                headers,
+                ' '
+            ),
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'stable__body' },
+                ' ',
+                rows,
+                ' '
+            )
+        );
+    }
+
+    return table;
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (ControlTable);
+
+/***/ }),
+/* 187 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ui_FormInput__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ui_ControlTable__ = __webpack_require__(186);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__store_actions_siteActions__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__VendorTabForm__ = __webpack_require__(188);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+
+
+var headers = [{
+    id: 1,
+    displayName: 'Application',
+    name: 'system'
+}, {
+    id: 2,
+    displayName: 'Vendor',
+    name: 'name'
+}];
+
+var VendorTab = function (_Component) {
+    _inherits(VendorTab, _Component);
+
+    function VendorTab(props) {
+        _classCallCheck(this, VendorTab);
+
+        var _this = _possibleConstructorReturn(this, (VendorTab.__proto__ || Object.getPrototypeOf(VendorTab)).call(this, props));
+
+        _this.handleDetachVendorEvent = _this.handleDetachVendorEvent.bind(_this);
+        return _this;
+    }
+
+    _createClass(VendorTab, [{
+        key: 'handleDetachVendorEvent',
+        value: function handleDetachVendorEvent(vendorId) {
+            this.props.onDetachVendor(this.props.siteId, vendorId);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                null,
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__VendorTabForm__["a" /* default */], null),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__ui_ControlTable__["a" /* default */], { data: this.props.data,
+                    headers: headers,
+                    onRemoveItem: this.handleDetachVendorEvent })
+            );
+        }
+    }]);
+
+    return VendorTab;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+    return {
+        onAttachVendor: function onAttachVendor(siteId, vendorId) {
+            return dispatch(__WEBPACK_IMPORTED_MODULE_4__store_actions_siteActions__["a" /* attachVendor */](siteId, vendorId));
+        },
+        onDetachVendor: function onDetachVendor(siteId, vendorId) {
+            return dispatch(__WEBPACK_IMPORTED_MODULE_4__store_actions_siteActions__["c" /* detachVendor */](siteId, vendorId));
+        }
+    };
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(null, mapDispatchToProps)(VendorTab));
+
+/***/ }),
+/* 188 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ui_FormSelect__ = __webpack_require__(170);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__store_actions_systemActions__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__store_actions_siteActions__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__config__ = __webpack_require__(6);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+
+
+var options = [{
+    id: 1,
+    name: 'Option 1'
+}, {
+    id: 2,
+    name: 'Option 2'
+}, {
+    id: 3,
+    name: 'Option 3'
+}];
+
+var VendorTabForm = function (_Component) {
+    _inherits(VendorTabForm, _Component);
+
+    function VendorTabForm(props) {
+        _classCallCheck(this, VendorTabForm);
+
+        var _this = _possibleConstructorReturn(this, (VendorTabForm.__proto__ || Object.getPrototypeOf(VendorTabForm)).call(this, props));
+
+        _this.state = {
+            vendors: [],
+            selectedVendor: 0
+        };
+
+        _this.handleSelectSystemChange = _this.handleSelectSystemChange.bind(_this);
+        _this.handleSelectVendor = _this.handleSelectVendor.bind(_this);
+        _this.handleAttachVendorEvent = _this.handleAttachVendorEvent.bind(_this);
+
+        return _this;
+    }
+
+    _createClass(VendorTabForm, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            if (!this.props.systems || this.props.systems.length <= 0) {
+                this.props.onListSystems();
+            }
+        }
+    }, {
+        key: 'handleSelectSystemChange',
+        value: function handleSelectSystemChange(event) {
+            var _this2 = this;
+
+            var name = event.target.name;
+            var value = event.target.value;
+
+            var api = __WEBPACK_IMPORTED_MODULE_6__config__["b" /* url */] + '/systems/' + value + '/vendors';
+
+            __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get(api, { headers: __WEBPACK_IMPORTED_MODULE_6__config__["a" /* headers */] }).then(function (res) {
+                _this2.setState(_extends({}, _this2.state, {
+                    vendors: res.data
+                }));
+            });
+        }
+    }, {
+        key: 'handleSelectVendor',
+        value: function handleSelectVendor(event) {
+            var value = event.target.value;
+
+            this.setState(_extends({}, this.state, {
+                selectedVendor: value
+            }));
+        }
+    }, {
+        key: 'handleAttachVendorEvent',
+        value: function handleAttachVendorEvent() {
+            this.props.onAttachVendor(this.props.siteId, this.state.selectedVendor);
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { className: 'row-form' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'row-form__section row-form__section--45' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__ui_FormSelect__["a" /* default */], { label: 'Application', name: 'system', onChange: this.handleSelectSystemChange,
+                        options: this.props.systems, edit: true })
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'row-form__section row-form__section--45' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__ui_FormSelect__["a" /* default */], { label: 'Vendor', name: 'vendor', onChange: this.handleSelectVendor,
+                        options: this.state.vendors, edit: true })
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'button',
+                    { className: 'button', onClick: this.handleAttachVendorEvent },
+                    '+'
+                )
+            );
+        }
+    }]);
+
+    return VendorTabForm;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+var mapStateToProps = function mapStateToProps(state) {
+
+    return {
+        siteId: state.site.site.id,
+        systems: state.system.collection
+    };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+
+    return {
+        onListSystems: function onListSystems() {
+            return dispatch(__WEBPACK_IMPORTED_MODULE_4__store_actions_systemActions__["a" /* listSystem */]());
+        },
+        onAttachVendor: function onAttachVendor(siteId, vendorId) {
+            return dispatch(__WEBPACK_IMPORTED_MODULE_5__store_actions_siteActions__["a" /* attachVendor */](siteId, vendorId));
+        }
+    };
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["b" /* connect */])(mapStateToProps, mapDispatchToProps)(VendorTabForm));
 
 /***/ })
 /******/ ]);

@@ -8,6 +8,7 @@ import SimpleTable from '../../ui/SimpleTable';
 import Tabs from '../../ui/Tabs';
 
 import * as siteActions from '../../store/actions/siteActions';
+import VendorTab from './tabs/VendorTab';
 
 const vendorColumns = [
     {
@@ -103,8 +104,8 @@ class ShowSite extends Component {
                                                     edit={this.state.edit} />
                                     </div>
                                         <Tabs tabs={tabs} >
-                                        <SimpleTable    data={this.props.site.vendors} 
-                                                        columns={vendorColumns} />
+                                        <VendorTab  data={this.props.site.vendors} 
+                                                    siteId={this.props.site.id} />
 
                                         <SimpleTable    data={this.props.site.documents} 
                                                         columns={documentColumns} />

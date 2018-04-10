@@ -14,6 +14,7 @@ const FormSelect =(props) => {
             <select disabled={!props.edit}
                     name={props.name} className="form__select" onChange={props.onChange}
                     value={props.value} >
+                    <option value='0'>--- Please Select ---</option>
                     { options }
             </select>
         </div>

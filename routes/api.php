@@ -24,10 +24,14 @@ Route::get('sites/{id}', 'SiteController@show');
 Route::put('sites/{id}', 'SiteController@update');
 Route::delete('sites/{id}', 'SiteController@destroy');
 
+Route::post('sites/{id}/vendors/{vendorId}', 'SiteController@attachVendor');
+Route::delete('sites/{id}/vendors/{vendorId}', 'SiteController@detachVendor');
+
 Route::get('vendors', 'VendorController@index');
 Route::post('vendors', 'VendorController@store');
 Route::get('vendors/{id}', 'VendorController@show');
 Route::put('vendors/{id}', 'VendorController@update');
 
 Route::get('systems', 'SystemController@index');
-Route::get('systems/{id}', 'SystemController@show');    
+Route::get('systems/{id}', 'SystemController@show');
+Route::get('systems/{id}/vendors', 'SystemController@getVendors');    

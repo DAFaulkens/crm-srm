@@ -147,11 +147,6 @@ class SiteController extends Controller
     public function search(Request $request)
     {
 
-        // $searchString = "%$request->search%";
-
-        // $sites = Site::where('name', 'like', $searchString)->paginate(10);
-        // return SiteResource::collection($sites);
-
         $result = 'No Search found';
 
         if($request->search){
@@ -159,6 +154,55 @@ class SiteController extends Controller
         }
 
         return $result;
+    }
+
+    public function updateVendors(Request $request, $id)
+    {
+        $site = Site::findOrFail($id);
+
+
+        if($site){
+            if($request->method == 'attach'){
+                $site->vendors()->attach($request->vendorId);
+            }
+    
+            if($request->method == 'detach'){
+                $site->vendors()->detach($request->vendorId);
+            }
+        }
+
+        $site->load('vendors', 'documents');
+
+        return new SiteResource($site); 
+       
+    }
+
+    public function attachVendor(Request $request, $id, $vendorId)
+    {
+        $site = Site::findOrFail($id);
+        
+        if($site){
+            $site->vendors()->attach($request->vendorId);
+
+            $site->load('vendors', 'documents');
+
+        }
+
+        return new SiteResource($site);
+        
+    }
+
+    public function detachVendor(Request $request, $id, $vendorId)
+    {
+        $site = Site::findOrFail($id);
+        
+        if($site){
+            $site->vendors()->detach($request->vendorId);
+
+            $site->load('vendors', 'documents');
+        }
+
+        return new SiteResource($site);
     }
 
 

@@ -47,6 +47,36 @@ export const updateSite = (updatedSite, id) => {
     }
 }
 
+export const attachVendor = (siteId, vendorId) => {
+    return dispatch => {
+
+        const api = `${url}/sites/${siteId}/vendors/${vendorId}`;
+
+        axios.post(api, {headers: headers}).then(res => {
+            dispatch({
+                type: actionTypes.ATTACH_VENDOR,
+                site: res.data.data
+            })
+        })
+
+    }
+}
+
+export const detachVendor = (siteId, vendorId) => {
+    return dispatch => {
+
+        const api = `${url}/sites/${siteId}/vendors/${vendorId}`;
+
+        axios.delete(api, {headers: headers}).then(res => {
+            dispatch({
+                type: actionTypes.DETACH_VENDOR,
+                site: res.data.data
+            })
+        })
+
+    }
+}
+
 export const editSite = () => {
     return {
         type: actionTypes.EDIT_SITE,

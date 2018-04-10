@@ -4,7 +4,8 @@ export const DELETE_SITE = 'DELETE_SITE';
 export const SHOW_SITE = 'SHOW_SITE';
 export const EDIT_SITE = 'EDIT_SITE';
 export const CANCEL = 'CANCEL';
-
+export const ATTACH_VENDOR = 'ATTACH_VENDOR';
+export const DETACH_VENDOR = 'DETACH_VENDOR';
 
 //Vendors
 export const SHOW_VENDOR = 'SHOW_VENDOR';

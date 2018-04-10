@@ -86,4 +86,17 @@ class SystemController extends Controller
     {
         //
     }
+
+
+    public function getVendors($id)
+    {
+        $system = System::findOrFail($id);
+        $vendors = array();
+
+        if($system){
+            $vendors =  $system->vendors;
+        }
+
+        return $vendors;
+    }
 }
