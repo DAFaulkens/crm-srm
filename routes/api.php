@@ -39,5 +39,6 @@ Route::get('systems/{id}', 'SystemController@show');
 Route::get('systems/{id}/vendors', 'SystemController@getVendors');
 
 Route::post('documents/upload', 'DocumentController@upload');
+Route::get('documents/{id}', 'DocumentController@download');
 
 

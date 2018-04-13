@@ -50,11 +50,48 @@ class DocumentController extends Controller
         $s3 = Storage::disk('s3');
 
         if($s3->put($filename,file_get_contents($file))){
-            return $s3->getDriver()->getAdapter()->getClient()->getObjectUrl($bucket, $filename);
+            // return $s3->getDriver()->getAdapter()->getClient()->getObjectUrl($bucket, $filename);
+            return $filename;
         }else {
 
             return null;
         }
+    }
+
+
+    public function download($id)
+    {
+
+        $document = Document::findOrFail($id);
+
+        $bucket = env('AWS_BUCKET');
+        $s3 = Storage::disk('s3');
+
+        if($document){
+
+            $location = $document->location;
+
+            $file = $s3->get($location);
+
+            $ext = pathinfo($location, PATHINFO_EXTENSION);
+
+
+            $filename = $document->name . '.' . $ext;
+
+            $headers = [
+                'Content-Type' => 'text/csv', 
+                'Content-Description' => 'File Transfer',
+                'Content-Disposition' => "attachment; filename={$filename}",
+                'filename'=> $filename
+            ];
+
+            return response($file, 200, $headers);
+            
+
+        }else {
+            return null;
+        }
+
     }
 
     /**

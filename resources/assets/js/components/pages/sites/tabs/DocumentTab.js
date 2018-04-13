@@ -8,6 +8,11 @@ const columns = [
         id: 1,
         displayName: 'Document',
         name: 'name'
+    },
+    {
+        id: 2,
+        displayName: 'Description',
+        name: 'description'
     }
 ]
 
