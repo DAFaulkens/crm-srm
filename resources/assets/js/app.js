@@ -9,11 +9,14 @@ import Main from './components/Main';
 import siteReducer from './components/store/reducers/siteReducers';
 import vendorReducer from './components/store/reducers/vendorReducers';
 import systemReducer from  './components/store/reducers/systemReducers';
-;
+import documentReducer from './components/store/reducers/documentReducer';
+
+
 const rootReducer = combineReducers({
     site: siteReducer,
     vendor: vendorReducer,
-    system: systemReducer
+    system: systemReducer,
+    document: documentReducer
 });
 
 

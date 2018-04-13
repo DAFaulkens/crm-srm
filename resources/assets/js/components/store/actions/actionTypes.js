@@ -17,3 +17,9 @@ export const CREATE_VENDOR = 'CREATE_VENDOR';
 //Systems
 
 export const LIST_SYSTEM = 'LIST_SYSTEM';
+
+
+//Documents
+
+export const DOCUMENT_UPLOADING = 'DOCUMENT_UPLOADING';
+export const DOCUMENT_UPLOADED = 'DOCUMENT_UPLOADED';

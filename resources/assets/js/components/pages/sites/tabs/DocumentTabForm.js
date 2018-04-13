@@ -5,6 +5,8 @@ import axios from 'axios';
 import { url, headers, uploadHeader } from '../../../../config';
 import FormInput from '../../../ui/FormInput';
 import * as siteActions from '../../../store/actions/siteActions';
+import * as documentActions from '../../../store/actions/documentActions';
+import Uploading from '../../../ui/spinner/Uploading';
 
 class DocumentTabForm extends Component {
 
@@ -47,6 +49,8 @@ class DocumentTabForm extends Component {
         formData.append('file', document.getElementById('file').files[0]);
         formData.append('name', this.state.document.name);
 
+        this.props.onUploadStart();
+
         axios.post(api, formData, {headers: uploadHeader}).then(res => {
             
             const document = {
@@ -55,7 +59,7 @@ class DocumentTabForm extends Component {
                 location: res.data
             }
 
-            console.log(document);
+            this.props.onUploadComplete();
 
             this.props.onAddDocument(document);
 
@@ -66,6 +70,8 @@ class DocumentTabForm extends Component {
     }
 
     render(){
+
+        const uploading = this.props.uploading? <Uploading /> : '';
         
         return  <div>
                     <div className='row-form'>
@@ -87,6 +93,7 @@ class DocumentTabForm extends Component {
                         <div className='row-form__section'>
                             <button className='button' onClick={this.handleFileUploadEvent} > Upload </button>
                         </div>
+                        {uploading}
                     </div>      
                 </div>
         
@@ -96,14 +103,18 @@ class DocumentTabForm extends Component {
 }
 
 const mapStateToProps = state =>{
-
+    return {
+        uploading: state.document.uploading
+    }
 
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAddDocument: (document) => dispatch(siteActions.addDocument(document))
+        onAddDocument: (document) => dispatch(siteActions.addDocument(document)),
+        onUploadStart: () => dispatch(documentActions.documentUploadStart()),
+        onUploadComplete: () => dispatch(documentActions.documentUploadCompleted())
     }
 }
 
-export default connect(null, mapDispatchToProps)(DocumentTabForm);
+export default connect(mapStateToProps, mapDispatchToProps)(DocumentTabForm);
