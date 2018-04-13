@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
+use App\Document;
+use App\Http\Resources\Document as DocumentResource;
 
 class DocumentController extends Controller
 {
@@ -34,7 +38,23 @@ class DocumentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+    }
+
+    public function upload(Request $request)
+    {
+        $file = $request->file('file');
+        $filename = time() . '.' . $file->getClientOriginalExtension();
+        $bucket = env('AWS_BUCKET');
+        
+        $s3 = Storage::disk('s3');
+
+        if($s3->put($filename,file_get_contents($file))){
+            return $s3->getDriver()->getAdapter()->getClient()->getObjectUrl($bucket, $filename);
+        }else {
+
+            return null;
+        }
     }
 
     /**

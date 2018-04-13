@@ -136,23 +136,27 @@ class SiteForm extends Component {
 
         return(
             <div className='form' >
+                <div className='form__row'>
                 <FormInput  label='Site Name' 
                             edit={this.props.edit || this.props.new} 
                             name='name' 
                             value={this.state.site.name } 
                             onChange={this.handleInputChangeEvent} />
-
+                </div>
+                <div className='form__row'>
                 <FormInput  label='Address' 
                             edit={this.props.edit || this.props.new} 
                             name='address' 
                             value={this.state.site.address} 
                             onChange={this.handleInputChangeEvent} />
-                
+                </div>
+                <div className='form__row'>
                 <FormInput  label='Phone Number' 
                             edit={this.props.edit || this.props.new} 
                             name='phone_number' 
                             value={this.state.site.phone_number} 
                             onChange={this.handleInputChangeEvent} />
+                </div>
                 { formControl }
             </div>
         )

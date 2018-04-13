@@ -9,6 +9,7 @@ import Tabs from '../../ui/Tabs';
 
 import * as siteActions from '../../store/actions/siteActions';
 import VendorTab from './tabs/VendorTab';
+import DocumentTab from './tabs/DocumentTab';
 
 const vendorColumns = [
     {
@@ -104,11 +105,11 @@ class ShowSite extends Component {
                                                     edit={this.state.edit} />
                                     </div>
                                         <Tabs tabs={tabs} >
-                                        <VendorTab  data={this.props.site.vendors} 
-                                                    siteId={this.props.site.id} />
+                                            <VendorTab  data={this.props.site.vendors} 
+                                                        siteId={this.props.site.id} />
 
-                                        <SimpleTable    data={this.props.site.documents} 
-                                                        columns={documentColumns} />
+                                            <DocumentTab data={this.props.site.documents} 
+                                                         siteId={this.props.site.id} />
                                         </Tabs>
                                 </div>
                                 

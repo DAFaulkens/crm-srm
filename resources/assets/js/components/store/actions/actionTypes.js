@@ -6,6 +6,7 @@ export const EDIT_SITE = 'EDIT_SITE';
 export const CANCEL = 'CANCEL';
 export const ATTACH_VENDOR = 'ATTACH_VENDOR';
 export const DETACH_VENDOR = 'DETACH_VENDOR';
+export const ADD_DOCUMENT = 'ADD_DOCUMENT';
 
 //Vendors
 export const SHOW_VENDOR = 'SHOW_VENDOR';

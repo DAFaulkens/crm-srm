@@ -3301,7 +3301,6 @@ body {
 }
 
 .form__group {
-  margin-bottom: 2rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -3312,6 +3311,10 @@ body {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
+}
+
+.form__row {
+  margin-bottom: 2rem;
 }
 
 .form__label {
@@ -3370,13 +3373,29 @@ body {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.row-form__text {
+  margin: 5px;
+  font-size: 1.2rem;
+}
+
+.row-form__section--20 {
+  width: 20%;
 }
 
 .row-form__section--45 {
   width: 45%;
+}
+
+.row-form__section--80 {
+  width: 80%;
 }
 
 .button {

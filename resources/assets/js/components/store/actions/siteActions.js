@@ -77,6 +77,21 @@ export const detachVendor = (siteId, vendorId) => {
     }
 }
 
+export const addDocument = (document, ) => {
+    return (dispatch, getState) => {
+
+        const siteId = getState().site.site.id;
+        const api = `${url}/sites/${siteId}/documents`;
+        console.log(api);
+        axios.post(api, document, {headers: headers}).then(res => {
+            dispatch({
+                type: actionTypes.ADD_DOCUMENT,
+                site: res.data.data
+            })
+        })
+    }
+}
+
 export const editSite = () => {
     return {
         type: actionTypes.EDIT_SITE,

@@ -59,7 +59,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 site: action.site
             }
-
+        case actionTypes.ADD_DOCUMENT:
+            return{
+                ...state,
+                site: action.site
+            }
         default:
             return state;
     }

@@ -6,3 +6,9 @@ export const headers = {
     'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]')
                         .getAttribute('content')
 };
+
+export const uploadHeader = {
+    'Content-Type': 'multipart/form-data',
+    'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]')
+                        .getAttribute('content')
+}

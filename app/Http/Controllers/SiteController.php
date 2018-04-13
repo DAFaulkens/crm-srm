@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
+use App\Document;
 use App\Site;
 use App\Http\Resources\Site as SiteResource;
 use App\Http\Resources\Vendor as VendorResource;
@@ -205,5 +208,25 @@ class SiteController extends Controller
         return new SiteResource($site);
     }
 
+    public function addDocument(Request $request, $id)
+    {
+        $site = Site::findOrFail($id);
+
+        if($site){
+            
+            $document = new Document;
+
+            $document->name = $request->name;
+            $document->description = $request->description;
+            $document->location = $request->location;
+
+            $site->documents()->save($document);
+
+            $site->load('vendors', 'documents');
+        }
+
+        return new SiteResource($site);
+        
+    }
 
 }

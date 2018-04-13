@@ -16,7 +16,8 @@ class Document extends Resource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name
+            'name' => $this->name,
+            'location'=> $this->location
         ];
     }
 }
