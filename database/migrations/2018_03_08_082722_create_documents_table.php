@@ -20,8 +20,12 @@ class CreateDocumentsTable extends Migration
             $table->string('location');
             $table->integer('site_id');
             $table->timestamps();
-            $table->foreign('site_id')->references('id')->on('sites')->onDelete('cascade');
+            // $table->foreign('site_id')->references('id')->on('sites')->onDelete('cascade');
         });
+
+        // Schema::table('documents', function($table) {
+        //     $table->foreign('user_id')->references('id')->on('sites')->onDelete('cascade');
+        // });
     }
 
     /**

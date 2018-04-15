@@ -21,8 +21,8 @@ class CreateContactsTable extends Migration
             $table->integer('site_id')->nullable();
             $table->integer('vendor_id')->nullable();
             $table->timestamps();
-            $table->foreign('site_id')->references('id')->on('sites')->onDelete('cascade');
-            $table->foreign('vendor_id')->references('id')->on('vendors')->onDelete('cascade');
+            // $table->foreign('site_id')->references('id')->on('sites')->onDelete('cascade');
+            // $table->foreign('vendor_id')->references('id')->on('vendors')->onDelete('cascade');
         });
     }
 

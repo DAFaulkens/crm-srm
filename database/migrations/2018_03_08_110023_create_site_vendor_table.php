@@ -16,8 +16,8 @@ class CreateSiteVendorTable extends Migration
         Schema::create('site_vendor', function (Blueprint $table) {
             $table->integer('site_id');
             $table->integer('vendor_id');
-            $table->foreign('site_id')->references('id')->on('sites')->onDelete('cascade');
-            $table->foreign('vendor_id')->references('id')->on('vendors')->onDelete('cascade');
+            // $table->foreign('site_id')->references('id')->on('sites')->onDelete('cascade');
+            // $table->foreign('vendor_id')->references('id')->on('vendors')->onDelete('cascade');
         });
     }
 
