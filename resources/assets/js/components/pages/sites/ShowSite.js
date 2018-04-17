@@ -111,8 +111,7 @@ class ShowSite extends Component {
                                             <DocumentTab data={this.props.site.documents} 
                                                          siteId={this.props.site.id} />
                                         </Tabs>
-                                </div>
-                                
+                                </div>                                 
                             </div>
                         )
         }
