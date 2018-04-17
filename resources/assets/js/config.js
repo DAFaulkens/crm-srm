@@ -10,5 +10,6 @@ export const headers = {
 export const uploadHeader = {
     'Content-Type': 'multipart/form-data',
     'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]')
-                        .getAttribute('content')
+                        .getAttribute('content'),
+    'custom-header': 'my-custome-header'
 }

@@ -38,7 +38,7 @@ class VendorTab extends Component {
                     <VendorTabForm />
                     <ControlTable   data={this.props.data} 
                                     headers={headers} 
-                                    onRemoveItem={this.handleDetachVendorEvent} />
+                                    control={this.handleDetachVendorEvent} />
                 </div>
     }
 

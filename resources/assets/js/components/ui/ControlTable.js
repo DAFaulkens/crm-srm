@@ -28,7 +28,7 @@ const TableRow = (props) => {
             { column }
             <div className="stable__control">
                     <input type="button" value="-" className="button" 
-                    onClick={()=>props.onRemoveItem(props.rowData.id)} />
+                    onClick={()=>props.control(props.rowData.id)} />
             </div>
         </div>
     )
@@ -44,7 +44,7 @@ const ControlTable = (props) => {
         rows = props.data.map(row => {
             return <TableRow    rowData={row} headers={props.headers} 
                                 key={ Math.floor(Math.random() * 999999)} 
-                                onRemoveItem={props.onRemoveItem} />
+                                control={props.control} />
         })
     }
 
