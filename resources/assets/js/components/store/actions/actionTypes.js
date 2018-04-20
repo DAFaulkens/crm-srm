@@ -23,3 +23,7 @@ export const LIST_SYSTEM = 'LIST_SYSTEM';
 
 export const DOCUMENT_UPLOADING = 'DOCUMENT_UPLOADING';
 export const DOCUMENT_UPLOADED = 'DOCUMENT_UPLOADED';
+
+
+export const USER_LOGIN = 'USER_LOGIN';
+export const USER_LOGOUT = 'USER_LOGOUT';
