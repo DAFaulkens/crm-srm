@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import {Switch, Route, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
+import jwt from 'jsonwebtoken';
 
 import SitePage from '../pages/sites/SitePage';
 import VendorPage from '../pages/vendors/VendorPage';
 import DocumentPage from '../pages/documents/DocumentPage';
 import HomePage from '../pages/home/HomePage';
 import Header from '../ui/Header';
+import * as authAction from '../store/actions/authActions';
 
 
 const navItems = [
@@ -16,34 +18,68 @@ const navItems = [
     {id: 4, name: 'Documents', path: '/documents'}
 ]
 
+
 class Dashboard extends Component {
 
     constructor(props){
         super(props);
-        
+        this.state = {
+
+        }
+
+        this.handleVerifyAuthEvent = this.handleVerifyAuthEvent.bind(this);
+        this.handleLogoutEvent = this.handleLogoutEvent.bind(this);
     }
 
     componentDidMount(){
         if(!this.props.authenticated){
-            // this.props.history.push('/login');
-            window.location ='http://localhost:8000/login';
+            console.log('Not Authenticated');
+           this.handleVerifyAuthEvent();
         }
     }
+
+    componentWillReceiveProps(nextProps){
+        if(!nextProps.authenticated){
+            this.props.history.push('/login');
+        }
+    }
+
+    handleLogoutEvent(){
+
+    }
+
+
+    handleVerifyAuthEvent(){
+        const token = sessionStorage.getItem('token');
+        const decode = jwt.decode(token);
+        console.log(decode);
+        if(decode){
+            if(decode.exp < (Date.now()/1000)){
+                this.props.history.push('/login');
+            }else {
+                this.props.onGetToken();
+            }
+        }else {
+            this.props.history.push('/login');
+        }
+    }
+
+
  
     render(){
 
         if(this.props.authenticated){
 
             return  <div>
-                <Header items={navItems} />
-                <Switch>
-                    <Route path='/home' component={HomePage} />
-                    <Route path='/sites' component={SitePage} />
-                    <Route path='/vendors' component={VendorPage} />
-                    <Route path='/documents' component={DocumentPage} />
-                    <Redirect from='/' to= '/home' />
-                </Switch>
-            </div>
+                        <Header items={navItems} onLogout={this.props.onLogout} />
+                        <Switch>
+                            <Route path='/home' component={HomePage} />
+                            <Route path='/sites' component={SitePage} />
+                            <Route path='/vendors' component={VendorPage} />
+                            <Route path='/documents' component={DocumentPage} />
+                            <Redirect from='/' to= '/home' />
+                        </Switch>
+                    </div>
 
         } else {
 
@@ -62,7 +98,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        onGetToken: () => dispatch(authAction.getToken()),
+        onLogout: () => dispatch(authAction.userLogout())
     }
 
 }
