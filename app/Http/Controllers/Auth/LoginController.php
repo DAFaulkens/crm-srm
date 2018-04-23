@@ -2,38 +2,46 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use App\User;
+use GuzzleHttp\Client;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
-    use AuthenticatesUsers;
-
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+   
+    public function authenticate(Request $request)
     {
-        $this->middleware('guest')->except('logout');
+
+        $email = $request->email;
+        $password = $request->password;
+
+        $hashedPassword = DB::table('users')->where('email', $email)->value('password');
+
+        if(Hash::check($password, $hashedPassword)){
+            $client = DB::table('oauth_clients')->where('password_client', 1)->first();
+            $http = new Client;
+            $url = env('APP_URL') . '/oauth/token';
+            $response = $http->post($url, [
+                'form_params' => [
+                    'grant_type' => 'password',
+                    'client_id' => $client->id,
+                    'client_secret' => $client->secret,
+                    'username' => $email,
+                    'password' => $password,
+                    'scope' => ''
+                ]
+            ]);
+
+            return json_decode((string) $response->getBody(), true);
+
+        }else {
+
+            return response('Auth Error', 401);
+        }
     }
+
+
 }

@@ -41,4 +41,6 @@ Route::get('systems/{id}/vendors', 'SystemController@getVendors');
 Route::post('documents/upload', 'DocumentController@upload');
 Route::get('documents/{id}', 'DocumentController@download');
 
+Route::post('authenticate', 'Auth\LoginController@authenticate');
+
 

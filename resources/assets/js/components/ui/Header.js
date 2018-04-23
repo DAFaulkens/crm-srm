@@ -21,7 +21,8 @@ const Header = (props) => {
             <div className='header__set'>
                 <ul className='header__menu'>
                     <li className='header__item' >
-                        <NavLink to='/logout' className='header__link'>Logout</NavLink>
+                        {/* <NavLiank to='/logout' className='header__link'>Logout</NavLink> */}
+                        <button className='button' onClick={props.onLogout} > Logout </button>
                     </li>
                 </ul>
             </div>

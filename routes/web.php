@@ -15,6 +15,9 @@
 //     return view('welcome');
 // });
 
+// Route::post('authenticate', 'Auth\LoginController@authenticate');
+
+
 Route::any('{all}', function () {
     return view('app');
 })
